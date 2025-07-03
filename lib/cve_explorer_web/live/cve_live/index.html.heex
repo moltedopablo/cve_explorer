@@ -1,0 +1,68 @@
+<.header>
+  Listing Cves
+  <:actions>
+    <.link patch={~p"/cves/new"}>
+      <.button>New Cve</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="cves" rows={@streams.cves} row_click={fn {_id, cve} -> JS.navigate(~p"/cves/#{cve}") end}
+  >
+  <:col :let={{_id, cve}} label="Cve">{cve.cve_id}</:col>
+  <:col :let={{_id, cve}} label="Date published">{cve.date_published}</:col>
+  <:col :let={{_id, cve}} label="Date updated">{cve.date_updated}</:col>
+  <:action :let={{_id, cve}}>
+    <div class="sr-only">
+      <.link navigate={~p"/cves/#{cve}"}>Show</.link>
+    </div>
+    <.link patch={~p"/cves/#{cve}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, cve}}>
+    <.link phx-click={JS.push("delete", value: %{id: cve.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+      >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="cve-modal" show on_cancel={JS.patch(~p"/cves")}>
+
+  <form id="upload-form" phx-submit="save" phx-change="validate">
+    <.live_file_input upload={@uploads.raw_json} />
+    <button type="submit">Upload</button>
+  </form>
+  <section phx-drop-target={@uploads.raw_json.ref}>
+    <%!-- render each raw_json entry --%>
+      <article :for={entry <- @uploads.raw_json.entries} class="upload-entry">
+        <figure>
+
+          <figcaption>{entry.client_name}</figcaption>
+        </figure>
+
+        <%!-- entry.progress will update automatically for in-flight entries --%>
+          <progress value={entry.progress} max="100"> {entry.progress}% </progress>
+
+          <%!-- a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 --%>
+            <button type="button" phx-click="cancel-upload" phx-value-ref={entry.ref}
+              aria-label="cancel">&times;</button>
+
+            <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
+              <p :for={err <- upload_errors(@uploads.raw_json, entry)} class="alert alert-danger">{error_to_string(err)}
+              </p>
+      </article>
+
+      <%!-- Phoenix.Component.upload_errors/1 returns a list of error atoms --%>
+        <p :for={err <- upload_errors(@uploads.raw_json)} class="alert alert-danger">
+          {error_to_string(err)}
+        </p>
+  </section>
+  <section>
+    <ul>
+      <li :for={uploaded_file <- @uploaded_files}>
+        {uploaded_file}
+      </li>
+    </ul>
+  </section>
+</.modal>
