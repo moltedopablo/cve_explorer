@@ -18,7 +18,9 @@ defmodule CveExplorer.ThreatIntel do
 
   """
   def list_cves do
-    Repo.all(CVE)
+    CVE
+    |> order_by(desc: :date_published)
+    |> Repo.all()
   end
 
   @doc """
