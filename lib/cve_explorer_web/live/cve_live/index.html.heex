@@ -9,7 +9,7 @@
 
 <.table id="cves" rows={@streams.cves} row_click={fn {_id, cve} -> JS.navigate(~p"/cves/#{cve}") end}
   >
-  <:col :let={{_id, cve}} label="Cve">{cve.cve_id}</:col>
+  <:col :let={{_id, cve}} label="CVE Id">{cve.cve_id}</:col>
   <:col :let={{_id, cve}} label="Date published">{cve.date_published}</:col>
 </.table>
 
