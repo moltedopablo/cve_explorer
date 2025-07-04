@@ -47,9 +47,18 @@
   </section>
   <section>
     <ul>
-      <li :for={uploaded_file <- @uploaded_files}>
-        {uploaded_file}
+
+      <li :for={file <- @uploaded_files}>
+        <span class={file.status}>
+          <div :if={file.status==:error} class="text-red-700">
+            <b>{file.file_name}</b>: {file.error}
+          </div>
+          <div :if={file.status==:success} class="text-green-700">
+            <b>{file.file_name}</b>: File uploaded successfully
+          </div>
+        </span>
       </li>
+
     </ul>
   </section>
 </.modal>

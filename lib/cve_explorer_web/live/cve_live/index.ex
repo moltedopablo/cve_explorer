@@ -11,7 +11,7 @@ defmodule CveExplorerWeb.CVELive.Index do
      stream(
        socket
        |> assign(:uploaded_files, [])
-       |> allow_upload(:raw_json, accept: ~w(.json), max_entries: 4),
+       |> allow_upload(:raw_json, accept: ~w(.json), max_entries: 10),
        :cves,
        ThreatIntel.list_cves()
      )}
@@ -46,20 +46,56 @@ defmodule CveExplorerWeb.CVELive.Index do
 
   @impl Phoenix.LiveView
   def handle_event("save", _params, socket) do
-    uploaded_files =
+    processed_files =
       consume_uploaded_entries(socket, :raw_json, fn %{path: path}, entry ->
-        {:ok, %CVE{} = cve} = read_json(path) |> CVEParser.parse_cve() |> ThreatIntel.create_cve()
-        # Move outside consume_uploaded_entries
-        update(socket, :cves, fn cves -> [cve | cves] end)
-        {:ok, entry.client_name}
+        with {:ok, content} <- File.read(path),
+             {:ok, attrs} <- CVEParser.parse_cve(content),
+             {:ok, %CVE{}} <- ThreatIntel.create_cve(attrs) do
+          {:ok, {:ok, entry.client_name}}
+        else
+          {:error, reason} ->
+            {:ok, {:error, {entry.client_name, format_file_error(reason)}}}
+        end
       end)
 
-    {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
+    uploaded_files =
+      Enum.map(processed_files, fn
+        {:ok, file_name} ->
+          %{file_name: file_name, status: :success}
+
+        {:error, {file_name, error}} ->
+          %{file_name: file_name, status: :error, error: format_file_error(error)}
+      end)
+
+    socket =
+      socket
+      |> assign(:uploaded_files, uploaded_files)
+      |> stream(:cves, ThreatIntel.list_cves(), reset: true)
+
+    {:noreply, socket}
   end
 
-  defp read_json(path) do
-    {:ok, content} = File.read(path)
-    content
+  defp format_file_error(%Jason.DecodeError{}) do
+    "Invalid JSON format"
+  end
+
+  defp format_file_error(%Ecto.Changeset{errors: errors}) do
+    Enum.map(errors, fn {field, {message, _}} ->
+      "#{field} #{message}"
+    end)
+    |> Enum.join(". ")
+  end
+
+  defp format_file_error(error) when is_bitstring(error) do
+    error
+  end
+
+  defp format_file_error(errors) when is_list(errors) do
+    Enum.join(errors, ". ")
+  end
+
+  defp format_file_error(_error) do
+    "There was an error processing the file"
   end
 
   defp error_to_string(:too_large), do: "Too large"
