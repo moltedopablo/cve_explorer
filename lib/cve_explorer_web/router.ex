@@ -27,9 +27,11 @@ defmodule CveExplorerWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", CveExplorerWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", CveExplorerWeb do
+    pipe_through :api
+    get "/cves", APIController, :index
+    get "/cves/:cve_id", APIController, :raw_json
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:cve_explorer, :dev_routes) do

@@ -38,6 +38,25 @@ defmodule CveExplorer.ThreatIntel do
   def get_cve!(id), do: Repo.get!(CVE, id)
 
   @doc """
+  Gets a single cve by its cve_id.
+  Raises `Ecto.NoResultsError` if the Cve does not exist.
+  ## Examples
+
+      iex> get_cve_by_cve_id("CVE-2021-12345")
+      {:ok, %CVE{}}
+
+      iex> get_cve_by_cve_id("CVE-2021-99999")
+      {:error, :not_found}
+
+  """
+  def get_cve_by_cve_id(cve_id) do
+    case Repo.get_by(CVE, cve_id: cve_id) do
+      nil -> {:error, :not_found}
+      cve -> {:ok, cve}
+    end
+  end
+
+  @doc """
   Creates a cve.
 
   ## Examples
