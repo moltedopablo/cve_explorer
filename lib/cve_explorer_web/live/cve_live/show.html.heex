@@ -2,9 +2,7 @@
   Cve {@cve.id}
   <:subtitle>This is a cve record from your database.</:subtitle>
   <:actions>
-    <.link href={~p"/cves/#{@cve}/download"} target="_blank">
-      <.button>Download cve</.button>
-    </.link>
+    <.button phx-click="download_cve">Download cve</.button>
   </:actions>
 </.header>
 
