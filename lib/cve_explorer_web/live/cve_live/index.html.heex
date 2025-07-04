@@ -13,7 +13,7 @@
   <:col :let={{_id, cve}} label="Date published">{cve.date_published}</:col>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="cve-modal" show on_cancel={JS.patch(~p"/cves")}>
+<.modal :if={@live_action in [:new, :edit]} id="cve-modal" show on_cancel={JS.patch(~p"/")}>
 
   <form id="upload-form" phx-submit="save" phx-change="validate">
     <.live_file_input upload={@uploads.raw_json} />

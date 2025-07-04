@@ -17,9 +17,7 @@ defmodule CveExplorerWeb.Router do
   scope "/", CveExplorerWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
-
-    live "/cves", CVELive.Index, :index
+    live "/", CVELive.Index, :index
     live "/cves/new", CVELive.Index, :new
     live "/cves/:id/edit", CVELive.Index, :edit
     live "/cves/:id", CVELive.Show, :show
