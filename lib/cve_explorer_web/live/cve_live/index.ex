@@ -22,12 +22,6 @@ defmodule CveExplorerWeb.CVELive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
-    socket
-    |> assign(:page_title, "Edit Cve")
-    |> assign(:cve, ThreatIntel.get_cve!(id))
-  end
-
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Cve")
@@ -38,23 +32,6 @@ defmodule CveExplorerWeb.CVELive.Index do
     socket
     |> assign(:page_title, "Listing Cves")
     |> assign(:cve, nil)
-  end
-
-  @impl true
-  @spec handle_info(
-          {CveExplorerWeb.CVELive.FormComponent, {:saved, any()}},
-          Phoenix.LiveView.Socket.t()
-        ) :: {:noreply, Phoenix.LiveView.Socket.t()}
-  def handle_info({CveExplorerWeb.CVELive.FormComponent, {:saved, cve}}, socket) do
-    {:noreply, stream_insert(socket, :cves, cve)}
-  end
-
-  @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    cve = ThreatIntel.get_cve!(id)
-    {:ok, _} = ThreatIntel.delete_cve(cve)
-
-    {:noreply, stream_delete(socket, :cves, cve)}
   end
 
   @impl Phoenix.LiveView
@@ -71,8 +48,6 @@ defmodule CveExplorerWeb.CVELive.Index do
   def handle_event("save", _params, socket) do
     uploaded_files =
       consume_uploaded_entries(socket, :raw_json, fn %{path: path}, entry ->
-        IO.inspect(entry, label: "ENTRY")
-
         {:ok, %CVE{} = cve} = read_json(path) |> CVEParser.parse_cve() |> ThreatIntel.create_cve()
         # Move outside consume_uploaded_entries
         update(socket, :cves, fn cves -> [cve | cves] end)
