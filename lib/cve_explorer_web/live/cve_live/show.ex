@@ -17,5 +17,4 @@ defmodule CveExplorerWeb.CVELive.Show do
   end
 
   defp page_title(:show), do: "Show Cve"
-  defp page_title(:edit), do: "Edit Cve"
 end
