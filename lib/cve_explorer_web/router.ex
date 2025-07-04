@@ -23,6 +23,7 @@ defmodule CveExplorerWeb.Router do
     live "/cves/new", CVELive.Index, :new
     live "/cves/:id/edit", CVELive.Index, :edit
     live "/cves/:id", CVELive.Show, :show
+    get "/cves/:id/download", DownloadController, :download
     live "/cves/:id/show/edit", CVELive.Show, :edit
   end
 
