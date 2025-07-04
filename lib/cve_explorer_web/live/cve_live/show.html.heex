@@ -1,13 +1,11 @@
 <.header>
-  Cve {@cve.id}
-  <:subtitle>This is a cve record from your database.</:subtitle>
+  {@cve.cve_id}
   <:actions>
     <.button phx-click="download_cve">Download cve</.button>
   </:actions>
 </.header>
 
 <.list>
-  <:item title="Cve">{@cve.cve_id}</:item>
   <:item title="Description">{@cve.description}</:item>
   <:item title="Date published">{@cve.date_published}</:item>
   <:item title="Date updated">{@cve.date_updated}</:item>
