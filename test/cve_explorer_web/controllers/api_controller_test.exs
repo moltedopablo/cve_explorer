@@ -1,7 +1,7 @@
 defmodule CveExplorerWeb.APIControllerTest do
   use CveExplorerWeb.ConnCase
 
-  import CveExplorer.CveExplorerWebFixtures
+  import CveExplorer.ThreatIntelFixtures
 
   alias CveExplorer.CveExplorerWeb.CVE
 
