@@ -87,8 +87,13 @@ defmodule CveExplorerWeb do
 
       # HTML escaping functionality
       import Phoenix.HTML
+
+      # Import DaisyUI components into your project
+      use DaisyUIComponents
+
+      # Comment your own CoreComponents to not conflict with the defaults of this library.
       # Core UI components
-      import CveExplorerWeb.CoreComponents
+      # import CveExplorerWeb.CoreComponents
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

@@ -53,6 +53,9 @@ config :tailwind,
     cd: Path.expand("../assets", __DIR__)
   ]
 
+# Configure DaisyUI components
+config :daisy_ui_components, translate_function: &CveExplorerWeb.CoreComponents.translate_error/1
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

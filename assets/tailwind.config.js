@@ -10,6 +10,7 @@ module.exports = {
     './js/**/*.js',
     '../lib/cve_explorer_web.ex',
     '../lib/cve_explorer_web/**/*.*ex',
+    '../deps/daisy_ui_components/**/*.*ex',
   ],
   theme: {
     extend: {
@@ -19,7 +20,8 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    // require('@tailwindcss/forms'),
+    require('daisyui'),
     // Allows prefixing tailwind classes with LiveView classes to add rules
     // only when LiveView classes are applied, for example:
     //
