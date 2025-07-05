@@ -37,3 +37,6 @@ npm-debug.log
 
 # Postgres dev data
 /pg_data
+
+# VS Code
+/.vscode
