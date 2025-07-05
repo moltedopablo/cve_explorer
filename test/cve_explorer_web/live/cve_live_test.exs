@@ -3,6 +3,7 @@ defmodule CveExplorerWeb.CVELiveTest do
 
   import Phoenix.LiveViewTest
   import CveExplorer.ThreatIntelFixtures
+  alias CveExplorerWeb.Test.Utils.CVEJSON
 
   @create_attrs %{
     description: "some description",
@@ -40,6 +41,28 @@ defmodule CveExplorerWeb.CVELiveTest do
       assert html =~ "Listing Cves"
       assert html =~ cve.cve_id
     end
+
+    test "list all cves order by date_published", %{conn: conn} do
+      cve1 = cve_fixture(%{cve_id: "CVE-2025-00001", date_published: ~U[2025-07-01 15:24:00Z]})
+      cve2 = cve_fixture(%{cve_id: "CVE-2025-00002", date_published: ~U[2025-07-02 15:24:00Z]})
+
+      {:ok, index_live, _html} = live(conn, ~p"/")
+
+      table_html =
+        index_live
+        |> element("table")
+        |> render()
+
+      assert table_html =~ cve1.cve_id
+      assert table_html =~ cve2.cve_id
+
+      # Check that content before cve2 is shorter than before cve1
+      # This ensures that cve2 appears before cve1 in the rendered HTML
+      before_cve1 = table_html |> String.split(cve1.cve_id) |> List.first() |> String.length()
+      before_cve2 = table_html |> String.split(cve2.cve_id) |> List.first() |> String.length()
+
+      assert before_cve2 < before_cve1
+    end
   end
 
   describe "Show" do
@@ -50,6 +73,126 @@ defmodule CveExplorerWeb.CVELiveTest do
 
       assert html =~ "Show Cve"
       assert html =~ cve.description
+    end
+  end
+
+  describe "File Upload" do
+    test "uploads a single valid CVE JSON file successfully", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/")
+
+      index_live
+      |> element("a", "New Cve")
+      |> render_click()
+
+      file = %{
+        last_modified: System.system_time(:millisecond),
+        name: "cve-2025-12345.json",
+        content: CVEJSON.valid(),
+        size: byte_size(CVEJSON.valid()),
+        content_type: "application/json"
+      }
+
+      index_live
+      |> file_input("#upload-form", :raw_json, [file])
+      |> render_upload("cve-2025-12345.json")
+
+      index_live
+      |> form("#upload-form")
+      |> render_submit()
+
+      assert has_element?(
+               index_live,
+               ".text-green-700",
+               "cve-2025-12345.json: File uploaded successfully"
+             )
+
+      assert CveExplorer.ThreatIntel.get_cve_by_cve_id("CVE-2025-12345") != {:error, :not_found}
+    end
+
+    test "handles invalid JSON format gracefully", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/")
+
+      index_live
+      |> element("a", "New Cve")
+      |> render_click()
+
+      file = %{
+        last_modified: System.system_time(:millisecond),
+        name: "invalid.json",
+        content: CVEJSON.invalid_json_format(),
+        size: byte_size(CVEJSON.invalid_json_format()),
+        content_type: "application/json"
+      }
+
+      index_live
+      |> file_input("#upload-form", :raw_json, [file])
+      |> render_upload("invalid.json")
+
+      index_live
+      |> form("#upload-form")
+      |> render_submit()
+
+      assert has_element?(
+               index_live,
+               ".text-red-700",
+               "invalid.json: Invalid JSON format"
+             )
+    end
+
+    test "handles missing required fields in CVE JSON", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/")
+
+      index_live
+      |> element("a", "New Cve")
+      |> render_click()
+
+      file = %{
+        last_modified: System.system_time(:millisecond),
+        name: "missing-cve-id.json",
+        content: CVEJSON.missing_cve_id(),
+        size: byte_size(CVEJSON.missing_cve_id()),
+        content_type: "application/json"
+      }
+
+      index_live
+      |> file_input("#upload-form", :raw_json, [file])
+      |> render_upload("missing-cve-id.json")
+
+      index_live
+      |> form("#upload-form")
+      |> render_submit()
+
+      assert has_element?(
+               index_live,
+               ".text-red-700",
+               "missing-cve-id.json: Missing cveId"
+             )
+    end
+
+    test "handles non-JSON file uploads", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/")
+
+      index_live
+      |> element("a", "New Cve")
+      |> render_click()
+
+      file = %{
+        last_modified: System.system_time(:millisecond),
+        name: "document.txt",
+        content: "This is a text file, not JSON",
+        size: byte_size("This is a text file, not JSON"),
+        content_type: "text/plain"
+      }
+
+      index_live
+      |> file_input("#upload-form", :raw_json, [file])
+      |> render_upload("document.txt")
+
+      assert has_element?(
+               index_live,
+               ".text-red-700",
+               "You have selected an unacceptable file type"
+             )
     end
   end
 end
