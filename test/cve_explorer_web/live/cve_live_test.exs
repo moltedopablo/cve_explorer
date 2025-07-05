@@ -5,28 +5,6 @@ defmodule CveExplorerWeb.CVELiveTest do
   import CveExplorer.ThreatIntelFixtures
   alias CveExplorerWeb.Test.Utils.CVEJSON
 
-  @create_attrs %{
-    description: "some description",
-    cve_id: "some cve_id",
-    date_published: "2025-07-02T15:24:00Z",
-    date_updated: "2025-07-02T15:24:00Z",
-    raw_json: %{}
-  }
-  @update_attrs %{
-    description: "some updated description",
-    cve_id: "some updated cve_id",
-    date_published: "2025-07-03T15:24:00Z",
-    date_updated: "2025-07-03T15:24:00Z",
-    raw_json: %{}
-  }
-  @invalid_attrs %{
-    description: nil,
-    cve_id: nil,
-    date_published: nil,
-    date_updated: nil,
-    raw_json: nil
-  }
-
   defp create_cve(_) do
     cve = cve_fixture()
     %{cve: cve}
