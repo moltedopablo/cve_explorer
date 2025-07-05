@@ -35,12 +35,12 @@
               aria-label="cancel">&times;</button>
 
             <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
-              <p :for={err <- upload_errors(@uploads.raw_json, entry)} class="alert alert-danger">{error_to_string(err)}
+              <p :for={err <- upload_errors(@uploads.raw_json, entry)} class="text-red-700">{error_to_string(err)}
               </p>
       </article>
 
       <%!-- Phoenix.Component.upload_errors/1 returns a list of error atoms --%>
-        <p :for={err <- upload_errors(@uploads.raw_json)} class="alert alert-danger">
+        <p :for={err <- upload_errors(@uploads.raw_json)} class="text-red-700">
           {error_to_string(err)}
         </p>
   </section>
