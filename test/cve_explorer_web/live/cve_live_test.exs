@@ -35,10 +35,10 @@ defmodule CveExplorerWeb.CVELiveTest do
     setup [:create_cve]
 
     test "lists all cves", %{conn: conn, cve: cve} do
-      {:ok, _index_live, html} = live(conn, ~p"/cves")
+      {:ok, _index_live, html} = live(conn, ~p"/")
 
       assert html =~ "Listing Cves"
-      assert html =~ cve.description
+      assert html =~ cve.cve_id
     end
   end
 
