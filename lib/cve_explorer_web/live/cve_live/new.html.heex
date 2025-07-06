@@ -15,9 +15,7 @@
     <form class="mt-4" id="upload-form" phx-submit="save" phx-change="validate">
       <fieldset class="fieldset bg-base-200 border-base-300 rounded-box  border p-4">
         <.live_file_input class="file-input" upload={@uploads.raw_json} />
-
       </fieldset>
-
       <div class="mt-6 " :if={@uploads.raw_json.entries !=[]}>
         <h2 class="text-lg font-bold text-xl">Files to upload</h2>
         <.table id="files-to-upload" class="table table-zebra table-sm" rows={@uploads.raw_json.entries}>
@@ -39,7 +37,7 @@
           </:col>
         </.table>
       </div>
-      <button type="submit" class="btn btn-block btn-soft btn-primary mt-4"
+      <button type="submit" class="btn btn-block btn-soft btn-default mt-4"
         disabled={@uploads.raw_json.entries==[]}>Upload</button>
     </form>
     <div class="mt-6 " :if={@uploaded_files !=[]}>
@@ -50,8 +48,10 @@
           <span class="text-success" :if={file.status==:success}>File uploaded successfully</span>
           <span class="text-error" :if={file.status==:error}>{file.error}</span>
         </:col>
-
       </.table>
+      <button class="btn btn-block mt-4">
+        <.link phx-click={JS.navigate(~p"/")}>Go back to list</.link>
+      </button>
     </div>
   </div>
 </div>
