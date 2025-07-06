@@ -17,7 +17,9 @@ defmodule CveExplorerWeb do
   those modules here.
   """
 
-  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+  def static_paths,
+    do:
+      ~w(assets fonts images favicon.ico robots.txt manifest.json apple-touch-icon.png favicon-32x32.png favicon-16x16.png)
 
   def router do
     quote do
