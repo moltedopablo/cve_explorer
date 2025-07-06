@@ -17,6 +17,18 @@ module.exports = {
       colors: {
         brand: '#FD4F00',
       },
+      fontFamily: {
+        sans: [
+          'Roboto Mono',
+          'ui-monospace',
+          'SFMono-Regular',
+          'Monaco',
+          'Consolas',
+          'Liberation Mono',
+          'Courier New',
+          'monospace',
+        ],
+      },
     },
   },
   plugins: [

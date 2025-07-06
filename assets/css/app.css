@@ -6,3 +6,9 @@
 @plugin "daisyui" {
   themes: all;
 }
+
+/* Apply monospace font globally */
+body {
+  font-family: 'Roboto Mono', ui-monospace, 'SFMono-Regular', Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+}
