@@ -1,14 +1,46 @@
-<.header>
-  {@cve.cve_id}
-  <:actions>
-    <.button phx-click="download_cve">Download</.button>
-  </:actions>
-</.header>
-
-<.list>
-  <:item title="Description">{@cve.description}</:item>
-  <:item title="Date published">{@cve.date_published}</:item>
-  <:item title="Date updated">{@cve.date_updated}</:item>
-</.list>
-
-<.back navigate={~p"/"}>Back</.back>
+<div class="max-w-4xl mx-auto p-6">
+  <div class="breadcrumbs max-w-xs text-md mb-4">
+    <ul>
+      <li>
+        <.link phx-click={JS.navigate(~p"/")}>Home</.link>
+      </li>
+      <li>Detail</li>
+    </ul>
+  </div>
+  <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+    <div class="flex justify-between items-start">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">{@cve.cve_id}</h1>
+        <p class="text-gray-600 mt-1">CVE Details</p>
+      </div>
+      <div class="flex gap-3">
+        <.button phx-click="download_cve" class="btn">
+          Download
+        </.button>
+      </div>
+    </div>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="md:col-span-2">
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Description</h2>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <p class="text-gray-800 leading-relaxed">{@cve.description}</p>
+        </div>
+      </div>
+    </div>
+    <div class="rounded-lg shadow-sm p-6">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4">Details</h3>
+      <div class="space-y-4">
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Published</dt>
+          <dd class="text-sm text-gray-900 mt-1">{@cve.date_published}</dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Updated</dt>
+          <dd class="text-sm text-gray-900 mt-1">{@cve.date_updated}</dd>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
