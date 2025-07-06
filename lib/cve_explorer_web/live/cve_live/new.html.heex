@@ -23,8 +23,8 @@
             <.tr>
               <.th>Filename</.th>
               <.th class="hidden sm:block">Progress</.th>
-              <.th>Actions</.th>
               <.th>Errors</.th>
+              <.th>Actions</.th>
             </.tr>
           </.thead>
           <.tbody>
@@ -33,13 +33,14 @@
                   entry.client_name}</.td>
               <.td class="hidden sm:block"><progress class="progress w-56" value={entry.progress} max="100"></progress>
               </.td>
-              <.td><button class="btn" type="button" phx-click="cancel-upload" phx-value-ref={entry.ref}
-                  aria-label="cancel">Cancel</button></.td>
               <.td>
+                <div :if={upload_errors(@uploads.raw_json, entry)==[]}>-</div>
                 <p :for={err <- upload_errors(@uploads.raw_json, entry)} class="text-error">
                   {error_to_string(err)}
                 </p>
               </.td>
+              <.td><button class="btn" type="button" phx-click="cancel-upload" phx-value-ref={entry.ref}
+                  aria-label="cancel">Cancel</button></.td>
             </.tr>
           </.tbody>
         </.table>
