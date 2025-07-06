@@ -6,13 +6,10 @@ defmodule CveExplorerWeb.CVELive.Index do
   @impl true
   def mount(_params, _session, socket) do
     {:ok,
-     stream(
-       socket
-       |> assign(:uploaded_files, [])
-       |> allow_upload(:raw_json, accept: ~w(.json), max_entries: 10),
-       :cves,
-       ThreatIntel.list_cves()
-     )}
+     socket
+     |> assign(:uploaded_files, [])
+     |> assign(:cves, ThreatIntel.list_cves())
+     |> allow_upload(:raw_json, accept: ~w(.json), max_entries: 10)}
   end
 
   @impl true
