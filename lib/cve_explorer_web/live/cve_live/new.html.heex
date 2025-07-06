@@ -48,7 +48,7 @@
         Enum.any?(@uploads.raw_json.entries, fn entry -> upload_errors(@uploads.raw_json, entry) != []
         end)}>Upload</button>
     </form>
-    <div class="mt-6 " :if={@uploaded_files !=[]}>
+    <div class="mt-6 " :if={@uploaded_files !=[] and @uploads.raw_json.entries==[]}>
       <h2 class="text-xl font-bold">Upload Result</h2>
       <.table id="files-upload-result" class="table table-zebra table-md" rows={@uploaded_files}>
         <:col :let={file} label="Filename">{file.file_name}</:col>

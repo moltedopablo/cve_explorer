@@ -257,5 +257,40 @@ defmodule CveExplorerWeb.CVELiveTest do
              |> render()
              |> String.contains?("disabled")
     end
+
+    test "upload result section only shows when no files are pending upload", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/cves/new")
+
+      refute has_element?(index_live, "#files-upload-result")
+
+      file = %{
+        last_modified: System.system_time(:millisecond),
+        name: "cve-2025-12345.json",
+        content: CVEJSON.valid(),
+        size: byte_size(CVEJSON.valid()),
+        content_type: "application/json"
+      }
+
+      index_live
+      |> file_input("#upload-form", :raw_json, [file])
+      |> render_upload("cve-2025-12345.json")
+
+      refute has_element?(index_live, "#files-upload-result")
+      assert has_element?(index_live, "#files-to-upload")
+
+      index_live
+      |> form("#upload-form")
+      |> render_submit()
+
+      assert has_element?(index_live, "#files-upload-result")
+
+      assert has_element?(
+               index_live,
+               "#files-upload-result .text-success",
+               "File uploaded successfully"
+             )
+
+      refute has_element?(index_live, "#files-to-upload")
+    end
   end
 end
