@@ -164,7 +164,7 @@ defmodule CveExplorerWeb.CVELiveTest do
 
       assert has_element?(
                index_live,
-               "#files-to-upload .alert-error",
+               "#files-to-upload .text-error",
                "You have selected an unacceptable file type"
              )
     end

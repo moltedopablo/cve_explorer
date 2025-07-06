@@ -16,25 +16,32 @@
       <fieldset class="fieldset bg-base-200 border-base-300 rounded-box  border p-4">
         <.live_file_input class="file-input" upload={@uploads.raw_json} />
       </fieldset>
-      <div class="mt-6 " :if={@uploads.raw_json.entries !=[]}>
+      <div id="files-to-upload" class="mt-6 " :if={@uploads.raw_json.entries !=[]}>
         <h2 class="text-lg font-bold text-xl">Files to upload</h2>
-        <.table id="files-to-upload" class="table table-zebra table-sm" rows={@uploads.raw_json.entries}>
-          <:col :let={entry} label="Filename">
-            {if String.length(entry.client_name) > 30, do: String.slice(entry.client_name, 0, 30) <> "...", else:
-              entry.client_name}
-          </:col>
-          <:col :let={entry} label="Progress">
-            <progress class="progress w-56" value={entry.progress} max="100"></progress>
-          </:col>
-          <:col :let={entry} label="Actions">
-            <button class="btn" type="button" phx-click="cancel-upload" phx-value-ref={entry.ref}
-              aria-label="cancel">Cancel</button>
-          </:col>
-          <:col :let={entry} label="Errors">
-            <p :for={err <- upload_errors(@uploads.raw_json, entry)} role="alert" class="alert alert-error alert-soft">
-              {error_to_string(err)}
-            </p>
-          </:col>
+        <.table class="table table-zebra table-sm">
+          <.thead>
+            <.tr>
+              <.th>Filename</.th>
+              <.th class="hidden sm:block">Progress</.th>
+              <.th class="hidden sm:block">Actions</.th>
+              <.th>Errors</.th>
+            </.tr>
+          </.thead>
+          <.tbody>
+            <.tr :for={entry <- @uploads.raw_json.entries}>
+              <.td>{if String.length(entry.client_name) > 30, do: String.slice(entry.client_name, 0, 30) <> "...", else:
+                  entry.client_name}</.td>
+              <.td class="hidden sm:block"><progress class="progress w-56" value={entry.progress} max="100"></progress>
+              </.td>
+              <.td class="hidden sm:block"><button class="btn" type="button" phx-click="cancel-upload"
+                  phx-value-ref={entry.ref} aria-label="cancel">Cancel</button></.td>
+              <.td>
+                <p :for={err <- upload_errors(@uploads.raw_json, entry)} class="text-error">
+                  {error_to_string(err)}
+                </p>
+              </.td>
+            </.tr>
+          </.tbody>
         </.table>
       </div>
       <button type="submit" class="btn btn-block btn-soft btn-default mt-4"
