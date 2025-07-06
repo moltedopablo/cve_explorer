@@ -53,6 +53,10 @@ make start
 
 The application will be available at [http://localhost:4000](http://localhost:4000).
 
+### 4. Use sample CVE files
+
+You can find sample CVE JSON files in the `samples` directory.
+
 ## Testing
 
 Run the test suite with:

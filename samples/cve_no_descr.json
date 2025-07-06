@@ -1,0 +1,460 @@
+{
+  "containers": {
+    "cna": {
+      "affected": [
+        {
+          "cpes": [
+            "cpe:2.3:o:microsoft:windows_10_1507:*:*:*:*:*:*:x64:*",
+            "cpe:2.3:o:microsoft:windows_10_1507:*:*:*:*:*:*:x86:*"
+          ],
+          "defaultStatus": "unaffected",
+          "product": "windows_10_1507",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.10240.21034",
+              "status": "affected",
+              "version": "10.0.10240.0",
+              "versionType": "custom"
+            }
+          ]
+        },
+        {
+          "cpes": [
+            "cpe:2.3:o:microsoft:windows_10_1607:*:*:*:*:*:*:x64:*",
+            "cpe:2.3:o:microsoft:windows_10_1607:*:*:*:*:*:*:x86:*"
+          ],
+          "defaultStatus": "unaffected",
+          "product": "windows_10_1607",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.14393.8148",
+              "status": "affected",
+              "version": "10.0.14393.0",
+              "versionType": "custom"
+            }
+          ]
+        },
+        {
+          "cpes": [
+            "cpe:2.3:o:microsoft:windows_10_1809:*:*:*:*:*:*:x64:*",
+            "cpe:2.3:o:microsoft:windows_10_1809:*:*:*:*:*:*:x86:*"
+          ],
+          "defaultStatus": "unaffected",
+          "product": "windows_10_1809",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.17763.7434",
+              "status": "affected",
+              "version": "10.0.17763.0",
+              "versionType": "custom"
+            }
+          ]
+        },
+        {
+          "cpes": [
+            "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:arm64:*",
+            "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:x64:*",
+            "cpe:2.3:o:microsoft:windows_10_21h2:*:*:*:*:*:*:x86:*"
+          ],
+          "defaultStatus": "unaffected",
+          "product": "windows_10_21h2",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.19044.5965",
+              "status": "affected",
+              "version": "10.0.19044.0",
+              "versionType": "custom"
+            }
+          ]
+        },
+        {
+          "cpes": [
+            "cpe:2.3:o:microsoft:windows_10_22h2:*:*:*:*:*:*:arm64:*",
+            "cpe:2.3:o:microsoft:windows_10_22h2:*:*:*:*:*:*:x64:*",
+            "cpe:2.3:o:microsoft:windows_10_22h2:*:*:*:*:*:*:x86:*"
+          ],
+          "defaultStatus": "unaffected",
+          "product": "windows_10_22h2",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.19045.5965",
+              "status": "affected",
+              "version": "10.0.19045.0",
+              "versionType": "custom"
+            }
+          ]
+        },
+        {
+          "cpes": [
+            "cpe:2.3:o:microsoft:windows_11_22h2:*:*:*:*:*:*:arm64:*",
+            "cpe:2.3:o:microsoft:windows_11_22h2:*:*:*:*:*:*:x64:*"
+          ],
+          "defaultStatus": "unaffected",
+          "product": "windows_11_22h2",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.22621.5472",
+              "status": "affected",
+              "version": "10.0.22621.0",
+              "versionType": "custom"
+            }
+          ]
+        },
+        {
+          "cpes": [
+            "cpe:2.3:o:microsoft:windows_11_23h2:*:*:*:*:*:*:arm64:*",
+            "cpe:2.3:o:microsoft:windows_11_23h2:*:*:*:*:*:*:x64:*"
+          ],
+          "defaultStatus": "unaffected",
+          "product": "windows_11_23h2",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.22631.5472",
+              "status": "affected",
+              "version": "10.0.22631.0",
+              "versionType": "custom"
+            }
+          ]
+        },
+        {
+          "cpes": [
+            "cpe:2.3:o:microsoft:windows_11_24h2:*:*:*:*:*:*:arm64:*",
+            "cpe:2.3:o:microsoft:windows_11_24h2:*:*:*:*:*:*:x64:*"
+          ],
+          "defaultStatus": "unaffected",
+          "product": "windows_11_24h2",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.26100.4349",
+              "status": "affected",
+              "version": "10.0.26100.0",
+              "versionType": "custom"
+            }
+          ]
+        },
+        {
+          "cpes": [
+            "cpe:2.3:o:microsoft:windows_server_2008:-:sp2:*:*:*:*:x64:*",
+            "cpe:2.3:o:microsoft:windows_server_2008:-:sp2:*:*:*:*:x86:*",
+            "cpe:2.3:o:microsoft:windows_server_2008:r2:sp1:*:*:*:*:x64:*"
+          ],
+          "defaultStatus": "unaffected",
+          "product": "windows_server_2008",
+          "vendor": "microsoft",
+          "versions": [
+            { "status": "affected", "version": "6.0.6003" },
+            { "status": "affected", "version": "6.1.7601" }
+          ]
+        },
+        {
+          "cpes": [
+            "cpe:2.3:o:microsoft:windows_server_2012:-:*:*:*:*:*:*:*",
+            "cpe:2.3:o:microsoft:windows_server_2012:r2:*:*:*:*:*:*:*"
+          ],
+          "defaultStatus": "unaffected",
+          "product": "windows_server_2012",
+          "vendor": "microsoft",
+          "versions": [
+            { "status": "affected", "version": "6.2.9200" },
+            { "status": "affected", "version": "6.3.9600" }
+          ]
+        },
+        {
+          "cpes": ["cpe:2.3:o:microsoft:windows_server_2016:*:*:*:*:*:*:*:*"],
+          "defaultStatus": "unaffected",
+          "product": "windows_server_2016",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.14393.8148",
+              "status": "affected",
+              "version": "10.0.14393.0",
+              "versionType": "custom"
+            }
+          ]
+        },
+        {
+          "cpes": ["cpe:2.3:o:microsoft:windows_server_2019:*:*:*:*:*:*:*:*"],
+          "defaultStatus": "unaffected",
+          "product": "windows_server_2019",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.17763.7434",
+              "status": "affected",
+              "version": "10.0.17763.0",
+              "versionType": "custom"
+            }
+          ]
+        },
+        {
+          "cpes": ["cpe:2.3:o:microsoft:windows_server_2022:*:*:*:*:*:*:*:*"],
+          "defaultStatus": "unaffected",
+          "product": "windows_server_2022",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.20348.3807",
+              "status": "affected",
+              "version": "10.0.20348.0",
+              "versionType": "custom"
+            }
+          ]
+        },
+        {
+          "cpes": [
+            "cpe:2.3:o:microsoft:windows_server_2022_23h2:*:*:*:*:*:*:x64:*"
+          ],
+          "defaultStatus": "unaffected",
+          "product": "windows_server_2022_23h2",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.25398.1665",
+              "status": "affected",
+              "version": "10.0.25398.0",
+              "versionType": "custom"
+            }
+          ]
+        },
+        {
+          "cpes": ["cpe:2.3:o:microsoft:windows_server_2025:*:*:*:*:*:*:x64:*"],
+          "defaultStatus": "unaffected",
+          "product": "windows_server_2025",
+          "vendor": "microsoft",
+          "versions": [
+            {
+              "lessThan": "10.0.26100.4349",
+              "status": "affected",
+              "version": "10.0.26100.0",
+              "versionType": "custom"
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "cvssV3_1": {
+            "attackComplexity": "LOW",
+            "attackVector": "NETWORK",
+            "availabilityImpact": "HIGH",
+            "baseScore": 8.8,
+            "baseSeverity": "HIGH",
+            "confidentialityImpact": "HIGH",
+            "integrityImpact": "HIGH",
+            "privilegesRequired": "NONE",
+            "scope": "UNCHANGED",
+            "userInteraction": "REQUIRED",
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+            "version": "3.1"
+          },
+          "format": "CVSS"
+        }
+      ],
+      "problemTypes": [
+        {
+          "descriptions": [
+            { "cweId": "CWE-73", "description": "CWE-73", "lang": "en" }
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "dateUpdated": "2025-06-10T17:22:18Z",
+        "orgId": "00000000-0000-4000-A000-000000000003",
+        "shortName": "nvd",
+        "x_subShortName": "nvd"
+      },
+      "references": [
+        {
+          "tags": ["technical-description"],
+          "url": "https://research.checkpoint.com/2025/stealth-falcon-zero-day/"
+        },
+        {
+          "tags": ["vendor-advisory"],
+          "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-33053"
+        },
+        {
+          "tags": ["x_press/media-coverage"],
+          "url": "https://therecord.media/microsoft-cisa-zero-day-turkish-defense-org"
+        },
+        {
+          "tags": ["x_press/media-coverage"],
+          "url": "https://www.bleepingcomputer.com/news/security/stealth-falcon-hackers-exploited-windows-webdav-zero-day-to-drop-malware/"
+        },
+        {
+          "tags": ["x_press/media-coverage"],
+          "url": "https://www.darkreading.com/vulnerabilities-threats/stealth-falcon-apt-exploits-microsoft-rce-zero-day-mideast"
+        },
+        {
+          "tags": ["x_press/media-coverage"],
+          "url": "https://www.theregister.com/2025/06/10/microsoft_patch_tuesday_june/"
+        }
+      ],
+      "x_remediations": {
+        "windows": [
+          {
+            "anyOf": ["KB5060118"],
+            "products": [
+              "Windows Server 2022, 23H2 Edition (Server Core installation)"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5060525"],
+            "products": [
+              "Windows Server 2022",
+              "Windows Server 2022 (Server Core installation)"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5060526"],
+            "products": [
+              "Windows Server 2022",
+              "Windows Server 2022 (Server Core installation)"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5060531"],
+            "products": [
+              "Windows 10 Version 1809 for 32-bit Systems",
+              "Windows 10 Version 1809 for x64-based Systems",
+              "Windows Server 2019",
+              "Windows Server 2019 (Server Core installation)"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5060533", "KB5061087", "KB5063159"],
+            "products": [
+              "Windows 10 Version 21H2 for 32-bit Systems",
+              "Windows 10 Version 21H2 for ARM64-based Systems",
+              "Windows 10 Version 21H2 for x64-based Systems",
+              "Windows 10 Version 22H2 for 32-bit Systems",
+              "Windows 10 Version 22H2 for ARM64-based Systems",
+              "Windows 10 Version 22H2 for x64-based Systems"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5060826", "KB5060999"],
+            "products": [
+              "Windows 11 Version 22H2 for ARM64-based Systems",
+              "Windows 11 Version 22H2 for x64-based Systems",
+              "Windows 11 Version 23H2 for ARM64-based Systems",
+              "Windows 11 Version 23H2 for x64-based Systems"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5060829", "KB5060842", "KB5063060"],
+            "products": [
+              "Windows 11 Version 24H2 for ARM64-based Systems",
+              "Windows 11 Version 24H2 for x64-based Systems",
+              "Windows Server 2025",
+              "Windows Server 2025 (Server Core installation)"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5060841"],
+            "products": [
+              "Windows 11 Version 24H2 for ARM64-based Systems",
+              "Windows 11 Version 24H2 for x64-based Systems",
+              "Windows Server 2025",
+              "Windows Server 2025 (Server Core installation)"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5060996"],
+            "products": [
+              "Windows Server 2008 R2 for x64-based Systems Service Pack 1",
+              "Windows Server 2008 R2 for x64-based Systems Service Pack 1 (Server Core installation)",
+              "Windows Server 2008 for 32-bit Systems Service Pack 2",
+              "Windows Server 2008 for 32-bit Systems Service Pack 2 (Server Core installation)",
+              "Windows Server 2008 for x64-based Systems Service Pack 2",
+              "Windows Server 2008 for x64-based Systems Service Pack 2 (Server Core installation)",
+              "Windows Server 2012",
+              "Windows Server 2012 (Server Core installation)",
+              "Windows Server 2012 R2",
+              "Windows Server 2012 R2 (Server Core installation)"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5060998"],
+            "products": [
+              "Windows 10 for 32-bit Systems",
+              "Windows 10 for x64-based Systems"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5061010"],
+            "products": [
+              "Windows 10 Version 1607 for 32-bit Systems",
+              "Windows 10 Version 1607 for x64-based Systems",
+              "Windows Server 2016",
+              "Windows Server 2016 (Server Core installation)"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5061018"],
+            "products": [
+              "Windows Server 2012 R2",
+              "Windows Server 2012 R2 (Server Core installation)"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5061026"],
+            "products": [
+              "Windows Server 2008 for 32-bit Systems Service Pack 2",
+              "Windows Server 2008 for 32-bit Systems Service Pack 2 (Server Core installation)",
+              "Windows Server 2008 for x64-based Systems Service Pack 2",
+              "Windows Server 2008 for x64-based Systems Service Pack 2 (Server Core installation)"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5061059"],
+            "products": [
+              "Windows Server 2012",
+              "Windows Server 2012 (Server Core installation)"
+            ],
+            "type": "update"
+          },
+          {
+            "anyOf": ["KB5061078"],
+            "products": [
+              "Windows Server 2008 R2 for x64-based Systems Service Pack 1",
+              "Windows Server 2008 R2 for x64-based Systems Service Pack 1 (Server Core installation)"
+            ],
+            "type": "update"
+          }
+        ]
+      }
+    }
+  },
+  "cveMetadata": {
+    "assignerOrgId": "f38d906d-7342-40ea-92c1-6c4a2c6478c8",
+    "assignerShortName": "microsoft",
+    "cveId": "CVE-2025-33053",
+    "datePublished": "2025-06-10T17:22:18Z",
+    "dateUpdated": "2025-06-21T01:00:02Z",
+    "state": "PUBLISHED"
+  },
+  "dataType": "CVE_RECORD",
+  "dataVersion": "5.0"
+}
