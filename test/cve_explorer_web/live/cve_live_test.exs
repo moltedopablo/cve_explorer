@@ -168,5 +168,33 @@ defmodule CveExplorerWeb.CVELiveTest do
                "You have selected an unacceptable file type"
              )
     end
+
+    test "navigates to list after clicking go back to list after upload", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/cves/new")
+
+      file = %{
+        last_modified: System.system_time(:millisecond),
+        name: "cve-2025-12345.json",
+        content: CVEJSON.valid(),
+        size: byte_size(CVEJSON.valid()),
+        content_type: "application/json"
+      }
+
+      index_live
+      |> file_input("#upload-form", :raw_json, [file])
+      |> render_upload("cve-2025-12345.json")
+
+      index_live
+      |> form("#upload-form")
+      |> render_submit()
+
+      assert {:ok, new_live, _html} =
+               index_live
+               |> element("#go-back-button", "Go back to list")
+               |> render_click()
+               |> follow_redirect(conn, ~p"/")
+
+      assert has_element?(new_live, ".card-title", "CVE Explorer List")
+    end
   end
 end
