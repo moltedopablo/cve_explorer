@@ -56,11 +56,7 @@ defmodule CveExplorerWeb.CVELiveTest do
 
   describe "File Upload" do
     test "uploads a single valid CVE JSON file successfully", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, ~p"/")
-
-      index_live
-      |> element("a", "New Cve")
-      |> render_click()
+      {:ok, index_live, _html} = live(conn, ~p"/cves/new")
 
       file = %{
         last_modified: System.system_time(:millisecond),
@@ -80,19 +76,15 @@ defmodule CveExplorerWeb.CVELiveTest do
 
       assert has_element?(
                index_live,
-               ".text-green-700",
-               "cve-2025-12345.json: File uploaded successfully"
+               "#files-upload-result .text-success",
+               "File uploaded successfully"
              )
 
       assert CveExplorer.ThreatIntel.get_cve_by_cve_id("CVE-2025-12345") != {:error, :not_found}
     end
 
     test "handles invalid JSON format gracefully", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, ~p"/")
-
-      index_live
-      |> element("a", "New Cve")
-      |> render_click()
+      {:ok, index_live, _html} = live(conn, ~p"/cves/new")
 
       file = %{
         last_modified: System.system_time(:millisecond),
@@ -112,17 +104,13 @@ defmodule CveExplorerWeb.CVELiveTest do
 
       assert has_element?(
                index_live,
-               ".text-red-700",
-               "invalid.json: Invalid JSON format"
+               "#files-upload-result .text-error",
+               "Invalid JSON format"
              )
     end
 
     test "handles missing required fields in CVE JSON", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, ~p"/")
-
-      index_live
-      |> element("a", "New Cve")
-      |> render_click()
+      {:ok, index_live, _html} = live(conn, ~p"/cves/new")
 
       file = %{
         last_modified: System.system_time(:millisecond),
@@ -142,17 +130,13 @@ defmodule CveExplorerWeb.CVELiveTest do
 
       assert has_element?(
                index_live,
-               ".text-red-700",
-               "missing-cve-id.json: Missing cveId"
+               "#files-upload-result .text-error",
+               "Missing cveId"
              )
     end
 
     test "handles non-JSON file uploads", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, ~p"/")
-
-      index_live
-      |> element("a", "New Cve")
-      |> render_click()
+      {:ok, index_live, _html} = live(conn, ~p"/cves/new")
 
       file = %{
         last_modified: System.system_time(:millisecond),
@@ -168,7 +152,7 @@ defmodule CveExplorerWeb.CVELiveTest do
 
       assert has_element?(
                index_live,
-               ".text-red-700",
+               "#files-to-upload .alert-error",
                "You have selected an unacceptable file type"
              )
     end
