@@ -18,7 +18,7 @@ defmodule CveExplorerWeb.Router do
     pipe_through :browser
 
     live "/", CVELive.Index, :index
-    live "/cves/new", CVELive.Index, :new
+    live "/cves/new", CVELive.New, :new
     live "/cves/:id/edit", CVELive.Index, :edit
     live "/cves/:id", CVELive.Show, :show
     live "/cves/:id/show/edit", CVELive.Show, :edit

@@ -1,0 +1,49 @@
+<div class="card card-border bg-base-100 ">
+
+  <div class="card-body">
+    <h2 class="card-title">Upload new CVEs</h2>
+    <p>Make sure your CVE is <b>.json</b> file and that it has all the required fields</p>
+    <form id="upload-form" phx-submit="save" phx-change="validate">
+      <fieldset class="fieldset bg-base-200 border-base-300 rounded-box  border p-4">
+        <.live_file_input class="file-input" upload={@uploads.raw_json} />
+
+      </fieldset>
+
+      <div class="mt-4 " :if={@uploads.raw_json.entries !=[]}>
+        <h2 class="text-lg font-bold">Files to upload</h2>
+        <.table id="files-to-upload" class="table table-zebra table-md" rows={@uploads.raw_json.entries}>
+          <:col :let={entry} label="Filename">
+            {if String.length(entry.client_name) > 30, do: String.slice(entry.client_name, 0, 30) <> "...", else:
+              entry.client_name}
+          </:col>
+          <:col :let={entry} label="Progress">
+            <progress class="progress w-56" value={entry.progress} max="100"></progress>
+          </:col>
+          <:col :let={entry} label="Actions">
+            <button class="btn" type="button" phx-click="cancel-upload" phx-value-ref={entry.ref}
+              aria-label="cancel">Cancel</button>
+          </:col>
+          <:col :let={entry} label="Errors">
+            <p :for={err <- upload_errors(@uploads.raw_json, entry)} role="alert" class="alert alert-error alert-soft">
+              {error_to_string(err)}
+            </p>
+          </:col>
+        </.table>
+      </div>
+      <button type="submit" class="btn btn-block btn-soft btn-primary mt-4"
+        disabled={@uploads.raw_json.entries==[]}>Upload</button>
+    </form>
+    <div class="mt-4 " :if={@uploaded_files !=[]}>
+      <h2 class="text-lg font-bold">Upload Result</h2>
+      <.table id="files-upload-result" class="table table-zebra table-md" rows={@uploaded_files}>
+        <:col :let={file} label="Filename">{file.file_name}</:col>
+        <:col :let={file} label="Result">
+          <span class="text-success" :if={file.status==:success}>File uploaded successfully</span>
+          <span class="text-error" :if={file.status==:error}>{file.error}</span>
+        </:col>
+
+      </.table>
+    </div>
+    <.back navigate={~p"/"}>Back</.back>
+  </div>
+</div>
