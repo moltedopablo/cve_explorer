@@ -196,5 +196,66 @@ defmodule CveExplorerWeb.CVELiveTest do
 
       assert has_element?(new_live, ".card-title", "CVE Explorer List")
     end
+
+    test "disables upload button when there are files with errors", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/cves/new")
+
+      assert index_live
+             |> element("button[type='submit']")
+             |> render()
+             |> String.contains?("disabled")
+
+      # Upload a non-JSON file which should trigger an error
+      file = %{
+        last_modified: System.system_time(:millisecond),
+        name: "document.txt",
+        content: "This is a text file, not JSON",
+        size: byte_size("This is a text file, not JSON"),
+        content_type: "text/plain"
+      }
+
+      index_live
+      |> file_input("#upload-form", :raw_json, [file])
+      |> render_upload("document.txt")
+
+      assert has_element?(
+               index_live,
+               "#files-to-upload .text-error",
+               "You have selected an unacceptable file type"
+             )
+
+      assert index_live
+             |> element("button[type='submit']")
+             |> render()
+             |> String.contains?("disabled")
+    end
+
+    test "enables upload button when valid files are selected", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/cves/new")
+
+      assert index_live
+             |> element("button[type='submit']")
+             |> render()
+             |> String.contains?("disabled")
+
+      # Upload a valid JSON file
+      file = %{
+        last_modified: System.system_time(:millisecond),
+        name: "cve-2025-12345.json",
+        content: CVEJSON.valid(),
+        size: byte_size(CVEJSON.valid()),
+        content_type: "application/json"
+      }
+
+      index_live
+      |> file_input("#upload-form", :raw_json, [file])
+      |> render_upload("cve-2025-12345.json")
+
+      # Verify the upload button is now enabled (not disabled)
+      refute index_live
+             |> element("button[type='submit']")
+             |> render()
+             |> String.contains?("disabled")
+    end
   end
 end
