@@ -26,6 +26,13 @@ defmodule CveExplorerWeb.CVELive.New do
   end
 
   @impl Phoenix.LiveView
+  def handle_event("new-files", _params, socket) do
+    {:noreply,
+     socket
+     |> assign(:uploaded_files, [])}
+  end
+
+  @impl Phoenix.LiveView
   def handle_event("save", _params, socket) do
     processed_files =
       consume_uploaded_entries(socket, :raw_json, fn %{path: path}, entry ->

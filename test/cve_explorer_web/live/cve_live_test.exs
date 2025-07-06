@@ -292,5 +292,42 @@ defmodule CveExplorerWeb.CVELiveTest do
 
       refute has_element?(index_live, "#files-to-upload")
     end
+
+    test "upload results clear when new files are added", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/cves/new")
+
+      file = %{
+        last_modified: System.system_time(:millisecond),
+        name: "cve-2025-12345.json",
+        content: CVEJSON.valid(),
+        size: byte_size(CVEJSON.valid()),
+        content_type: "application/json"
+      }
+
+      index_live
+      |> file_input("#upload-form", :raw_json, [file])
+      |> render_upload("cve-2025-12345.json")
+
+      index_live
+      |> form("#upload-form")
+      |> render_submit()
+
+      assert has_element?(index_live, "#files-upload-result")
+
+      assert has_element?(
+               index_live,
+               "#files-upload-result .text-success",
+               "File uploaded successfully"
+             )
+
+      # Trigger the new-files event by adding a new file to the file input
+      index_live
+      |> file_input("#upload-form", :raw_json, [file])
+      |> render_upload("cve-2025-12345.json")
+
+      # Verify upload results are cleared and files-to-upload section is shown
+      refute has_element?(index_live, "#files-upload-result")
+      assert has_element?(index_live, "#files-to-upload")
+    end
   end
 end

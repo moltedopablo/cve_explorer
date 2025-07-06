@@ -14,7 +14,7 @@
     </p>
     <form class="mt-4" id="upload-form" phx-submit="save" phx-change="validate">
       <fieldset class="fieldset bg-base-200 border-base-300 rounded-box  border p-4">
-        <.live_file_input class="file-input" upload={@uploads.raw_json} />
+        <.live_file_input class="file-input" upload={@uploads.raw_json} phx-change="new-files" />
       </fieldset>
       <div id="files-to-upload" class="mt-6 " :if={@uploads.raw_json.entries !=[]}>
         <h2 class="text-lg font-bold text-xl">Files to upload</h2>
