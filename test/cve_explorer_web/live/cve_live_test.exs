@@ -45,11 +45,11 @@ defmodule CveExplorerWeb.CVELiveTest do
     test "navigates to upload new CVEs page when clicking Upload new CVEs", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, ~p"/")
 
-      assert {:ok, new_live, _html} = 
-        index_live
-        |> element("a", "Upload new CVEs")
-        |> render_click()
-        |> follow_redirect(conn, ~p"/cves/new")
+      assert {:ok, new_live, _html} =
+               index_live
+               |> element("a", "Upload new CVEs")
+               |> render_click()
+               |> follow_redirect(conn, ~p"/cves/new")
 
       assert has_element?(new_live, "#upload-form")
     end
