@@ -182,5 +182,11 @@ defmodule CveExplorer.ThreatIntelTest do
         assert cve.cve_id == valid_id
       end
     end
+
+    test "create_cve/1 with invalid date format returns error changeset" do
+      attrs = Map.put(@valid_attrs, "date_published", "invalid-date")
+      assert {:error, %Ecto.Changeset{} = changeset} = ThreatIntel.create_cve(attrs)
+      assert {"is invalid", _} = changeset.errors[:date_published]
+    end
   end
 end
