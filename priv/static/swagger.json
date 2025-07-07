@@ -36,7 +36,6 @@
       "type": "object"
     }
   },
-  "basePath": "/",
   "paths": {
     "/api/cves": {
       "get": {
@@ -94,5 +93,6 @@
       }
     }
   },
-  "swagger": "2.0"
+  "swagger": "2.0",
+  "basePath": "/"
 }
