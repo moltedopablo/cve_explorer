@@ -67,6 +67,8 @@ mix test
 
 # API Endpoints
 
+You can access the API documentation at [http://localhost:4000/api/swagger](http://localhost:4000/api/swagger).
+
 - `GET /api/cves` - Retrieve all stored CVEs in JSON format
 - `GET /api/cves/:cve_id` - Retrieve the complete JSON of a specific CVE by CVE Id
 
@@ -93,7 +95,7 @@ Current state is a fully functional CVE management system with upload, parsing, 
 ## Tasks left behind
 
 - [ ] Add linting like credo and Dialyzer
-- [ ] Add API documentation using OpenAPI or similar
+- [x] Add API documentation using OpenAPI or similar
 - [ ] Create a Dockerfile for production deployment and deploy to a cloud provider
 - [ ] Add integration tests for uploading multiple files. I tried for a while but it kept crashing. Related link: https://github.com/phoenixframework/phoenix_live_view/issues/3480
 - [ ] Add pagination to the CVE list view

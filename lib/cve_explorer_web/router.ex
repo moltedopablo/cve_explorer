@@ -31,6 +31,12 @@ defmodule CveExplorerWeb.Router do
     get "/cves/:cve_id", APIController, :raw_json
   end
 
+  scope "/api/swagger" do
+    forward "/", PhoenixSwagger.Plug.SwaggerUI,
+      otp_app: :cve_explorer,
+      swagger_file: "swagger.json"
+  end
+
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:cve_explorer, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put
@@ -46,5 +52,16 @@ defmodule CveExplorerWeb.Router do
       live_dashboard "/dashboard", metrics: CveExplorerWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  def swagger_info do
+    %{
+      info: %{
+        version: "1.0",
+        title: "CVE Explorer API",
+        description: "API for exploring CVE (Common Vulnerabilities and Exposures) data"
+      },
+      basePath: "/"
+    }
   end
 end

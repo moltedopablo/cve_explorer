@@ -1,0 +1,98 @@
+{
+  "info": {
+    "version": "1.0",
+    "description": "API for exploring CVE (Common Vulnerabilities and Exposures) data",
+    "title": "CVE Explorer API"
+  },
+  "host": "localhost:4000",
+  "definitions": {
+    "CVE": {
+      "description": "A CVE entry",
+      "properties": {
+        "cve_id": {
+          "description": "CVE id (e.g., CVE-2021-1234)",
+          "type": "string"
+        },
+        "date_published": {
+          "description": "Publication date",
+          "format": "datetime",
+          "type": "string"
+        }
+      },
+      "title": "CVE",
+      "type": "object"
+    },
+    "CVEList": {
+      "description": "A list of CVE entries",
+      "items": {
+        "$ref": "#/definitions/CVE"
+      },
+      "title": "CVE List",
+      "type": "array"
+    },
+    "CVERawJSON": {
+      "description": "Raw JSON data for a CVE entry",
+      "title": "CVE Raw JSON",
+      "type": "object"
+    }
+  },
+  "basePath": "/",
+  "paths": {
+    "/api/cves": {
+      "get": {
+        "description": "Retrieve a list of all CVE (Common Vulnerabilities and Exposures) entries",
+        "operationId": "CveExplorerWeb.APIController.index",
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CVEList"
+            }
+          }
+        },
+        "summary": "List all CVEs",
+        "tags": [
+          "API"
+        ]
+      }
+    },
+    "/api/cves/{cve_id}": {
+      "get": {
+        "description": "Retrieve the raw JSON data for a specific CVE by its ID",
+        "operationId": "CveExplorerWeb.APIController.raw_json",
+        "parameters": [
+          {
+            "description": "CVE ID (e.g., CVE-2021-1234)",
+            "in": "path",
+            "name": "cve_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CVERawJSON"
+            }
+          },
+          "404": {
+            "description": "CVE not found"
+          }
+        },
+        "summary": "Get CVE raw JSON data",
+        "tags": [
+          "API"
+        ]
+      }
+    }
+  },
+  "swagger": "2.0"
+}
