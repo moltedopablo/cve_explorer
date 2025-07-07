@@ -329,5 +329,39 @@ defmodule CveExplorerWeb.CVELiveTest do
       refute has_element?(index_live, "#files-upload-result")
       assert has_element?(index_live, "#files-to-upload")
     end
+
+    test "shows general error when uploading more than 10 files", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/cves/new")
+
+      files =
+        Enum.map(1..11, fn i ->
+          %{
+            last_modified: System.system_time(:millisecond),
+            name: "cve-2025-#{String.pad_leading(to_string(i), 5, "0")}.json",
+            content: CVEJSON.valid(),
+            size: byte_size(CVEJSON.valid()),
+            content_type: "application/json"
+          }
+        end)
+
+      file_input =
+        index_live
+        |> file_input("#upload-form", :raw_json, files)
+
+      Enum.each(files, fn file ->
+        render_upload(file_input, file.name)
+      end)
+
+      assert has_element?(
+               index_live,
+               ".alert.alert-error",
+               "You have selected too many files"
+             )
+
+      assert index_live
+             |> element("button[type='submit']")
+             |> render()
+             |> String.contains?("disabled")
+    end
   end
 end

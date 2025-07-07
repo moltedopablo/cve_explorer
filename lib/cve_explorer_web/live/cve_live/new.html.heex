@@ -45,9 +45,14 @@
           </.tbody>
         </.table>
       </div>
+      <p :for={err <- upload_errors(@uploads.raw_json)} class="mt-4 mb-2">
+      <div role="alert" class="alert alert-error">
+        {error_to_string(err)}
+      </div>
+      </p>
       <button type="submit" class="btn btn-block btn-soft btn-default mt-4" disabled={@uploads.raw_json.entries==[] or
         Enum.any?(@uploads.raw_json.entries, fn entry -> upload_errors(@uploads.raw_json, entry) != []
-        end)}>Upload</button>
+        end) or Enum.any?(upload_errors(@uploads.raw_json)) }>Upload</button>
     </form>
     <div class="mt-6 " :if={@uploaded_files !=[] and @uploads.raw_json.entries==[]}>
       <h2 class="text-xl font-bold">Upload Result</h2>
